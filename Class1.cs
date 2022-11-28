@@ -13,9 +13,22 @@ namespace Test_IoC_and_generics
 
     }
 
-    public class Plugin : IPlugin
+    public interface IInfrastructure
     {
 
+    }
+
+    public class Infrastructure : IInfrastructure
+    {
+
+    }
+
+    public class Plugin : IPlugin
+    {
+        public Plugin(IInfrastructure _)
+        {
+
+        }
     }
 
     public class PluginWrapper<TImpl> where TImpl: class, IPlugin
@@ -29,6 +42,7 @@ namespace Test_IoC_and_generics
     {
         public Investigation()
         {
+            ServiceLocator.Default.RegisterType<IInfrastructure, Infrastructure>(RegistrationType.Transient);
             ServiceLocator.Default.RegisterType(typeof(Plugin),typeof(Plugin), RegistrationType.Transient);
             var wrapperType = typeof(PluginWrapper<>).MakeGenericType(typeof(Plugin));
             ServiceLocator.Default.RegisterType(wrapperType, wrapperType,RegistrationType.Transient);
