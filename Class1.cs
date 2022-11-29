@@ -43,9 +43,9 @@ namespace Test_IoC_and_generics
         public Investigation()
         {
             ServiceLocator.Default.RegisterType<IInfrastructure, Infrastructure>(RegistrationType.Transient);
-            ServiceLocator.Default.RegisterType(typeof(Plugin),typeof(Plugin), RegistrationType.Transient);
+            ServiceLocator.Default.RegisterType(typeof(Plugin),typeof(Plugin),registrationType:RegistrationType.Transient);
             var wrapperType = typeof(PluginWrapper<>).MakeGenericType(typeof(Plugin));
-            ServiceLocator.Default.RegisterType(wrapperType, wrapperType,RegistrationType.Transient);
+            ServiceLocator.Default.RegisterType(wrapperType, wrapperType, registrationType: RegistrationType.Transient);
         }
 
         [Fact]
